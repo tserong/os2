@@ -1,0 +1,20 @@
+name: Dev Manual Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        required: true
+        type: string
+        default: sl-micro-6
+      push:
+        required: true
+        type: boolean
+
+jobs:
+  build-for-dev:
+    uses: ./.github/workflows/factory.yml
+    with:
+      tag: ${{ inputs.ref }}-head
+      push: ${{ inputs.push }}
+    secrets: inherit

@@ -6,12 +6,16 @@ on:
     - sle-micro
   schedule:
     - cron: "0 1 * * *"
-
+  workflow_dispatch:
+    inputs:
+      push:
+        required: true
+        type: boolean
 
 jobs:
   build-for-dev:
     uses: ./.github/workflows/factory.yml
     with:
       tag: ${{ github.ref_name }}-head
-      push: true
+      push: ${{ inputs.push == false && false || true }}
     secrets: inherit
